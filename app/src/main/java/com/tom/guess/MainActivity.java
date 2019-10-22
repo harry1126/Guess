@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 count = "";
                 guess.setText(count);
-                result.setVisibility(View.GONE);
                 secret = new Random().nextInt(10)+1;
                 result.setVisibility(View.GONE);
                 information.setText("");
@@ -55,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     result.setImageResource(R.drawable.happy);
                     result.setVisibility(view.VISIBLE);
                     information.setText("猜了"+String.valueOf(times+1)+"次答對");
+                    times = 0;
                 } else if (secret>num){
                     information.setText("bigger !");
                     //Toast.makeText(MainActivity.this,"bigger",Toast.LENGTH_LONG).show();
@@ -69,29 +69,29 @@ public class MainActivity extends AppCompatActivity {
                     times++;
                 }
     }
-            private void Emulates(View view) {
-                int times= 0;
-                if(num ==secret){
-                    information.setText("got it !");
-                    //Toast.makeText(MainActivity.this,"got it",Toast.LENGTH_LONG).show();
-                    result.setImageResource(R.drawable.happy);
-                    result.setVisibility(view.VISIBLE);
-                    information.setText("猜了"+String.valueOf(times+1)+"次答對");
-                } else if (secret>num){
-                    information.setText("bigger !");
-                    //Toast.makeText(MainActivity.this,"bigger",Toast.LENGTH_LONG).show();
-                    result.setImageResource(R.drawable.upset);
-                    result.setVisibility(view.VISIBLE);
-                    times++;
-
-                }else if (secret < num){
-                    information.setText("smaller !");
-                    //Toast.makeText(MainActivity.this,"smaller",Toast.LENGTH_LONG).show();
-                    result.setImageResource(R.drawable.upset);
-                    result.setVisibility(view.VISIBLE);
-                    times++;
-                }
-    }
+//            private void Emulates(View view) {
+//                int times= 0;
+//                if(num ==secret){
+//                    information.setText("got it !");
+//                    //Toast.makeText(MainActivity.this,"got it",Toast.LENGTH_LONG).show();
+//                    result.setImageResource(R.drawable.happy);
+//                    result.setVisibility(view.VISIBLE);
+//                    information.setText("猜了"+String.valueOf(times+1)+"次答對");
+//                } else if (secret>num){
+//                    information.setText("bigger !");
+//                    //Toast.makeText(MainActivity.this,"bigger",Toast.LENGTH_LONG).show();
+//                    result.setImageResource(R.drawable.upset);
+//                    result.setVisibility(view.VISIBLE);
+//                    times++;
+//
+//                }else if (secret < num){
+//                    information.setText("smaller !");
+//                    //Toast.makeText(MainActivity.this,"smaller",Toast.LENGTH_LONG).show();
+//                    result.setImageResource(R.drawable.upset);
+//                    result.setVisibility(view.VISIBLE);
+//                    times++;
+//                }
+//    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
