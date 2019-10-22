@@ -20,12 +20,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
-    String counter;
     int secret = new Random().nextInt(10)+1;
     private ImageView result;
     String TAG = MainActivity.class.getSimpleName();
     private TextView guess;
     private int num;
+    String count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                count= "";
+                guess.setText(count);
             }
         });
     }       public void Button(View view){
