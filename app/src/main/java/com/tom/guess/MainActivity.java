@@ -3,7 +3,6 @@ package com.tom.guess;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,25 +13,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
+    String TAG = MainActivity.class.getSimpleName();
     int secret = new Random().nextInt(10)+1;
     private ImageView result;
-    String TAG = MainActivity.class.getSimpleName();
     private TextView guess;
     private int num;
     String count;
-
+    private TextView information;
+    int times = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         guess = findViewById(R.id.guess_number);
-        result = findViewById(R.id.happy);
+        result = findViewById(R.id.result_image);
+        information = findViewById(R.id.information);
         Log.d(TAG,"secret:"+secret);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,35 +39,65 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                count= "";
+                count = "";
                 guess.setText(count);
+                result.setVisibility(View.GONE);
+                secret = new Random().nextInt(10)+1;
+                result.setVisibility(View.GONE);
+                information.setText("");
             }
         });
     }       public void Button(View view){
                 num = Integer.parseInt(guess.getText().toString());
                 if(num ==secret){
-                Toast.makeText(MainActivity.this,"got it",Toast.LENGTH_LONG).show();
-                result.setImageResource(R.drawable.happy);
-                result.setVisibility(view.VISIBLE);
-                }else if (secret>num){
-                Toast.makeText(MainActivity.this,"bigger",Toast.LENGTH_LONG).show();
-                result.setImageResource(R.drawable.upset);
-                result.setVisibility(view.VISIBLE);
-
-                }else if (secret < num){
-                    Toast.makeText(MainActivity.this,"smaller",Toast.LENGTH_LONG).show();
+                    information.setText("got it !");
+                    //Toast.makeText(MainActivity.this,"got it",Toast.LENGTH_LONG).show();
+                    result.setImageResource(R.drawable.happy);
+                    result.setVisibility(view.VISIBLE);
+                    information.setText("猜了"+String.valueOf(times+1)+"次答對");
+                } else if (secret>num){
+                    information.setText("bigger !");
+                    //Toast.makeText(MainActivity.this,"bigger",Toast.LENGTH_LONG).show();
                     result.setImageResource(R.drawable.upset);
                     result.setVisibility(view.VISIBLE);
-        }
+                    times++;
+                }else if (secret < num){
+                    information.setText("smaller !");
+                    //Toast.makeText(MainActivity.this,"smaller",Toast.LENGTH_LONG).show();
+                    result.setImageResource(R.drawable.upset);
+                    result.setVisibility(view.VISIBLE);
+                    times++;
+                }
     }
+            private void Emulates(View view) {
+                int times= 0;
+                if(num ==secret){
+                    information.setText("got it !");
+                    //Toast.makeText(MainActivity.this,"got it",Toast.LENGTH_LONG).show();
+                    result.setImageResource(R.drawable.happy);
+                    result.setVisibility(view.VISIBLE);
+                    information.setText("猜了"+String.valueOf(times+1)+"次答對");
+                } else if (secret>num){
+                    information.setText("bigger !");
+                    //Toast.makeText(MainActivity.this,"bigger",Toast.LENGTH_LONG).show();
+                    result.setImageResource(R.drawable.upset);
+                    result.setVisibility(view.VISIBLE);
+                    times++;
 
+                }else if (secret < num){
+                    information.setText("smaller !");
+                    //Toast.makeText(MainActivity.this,"smaller",Toast.LENGTH_LONG).show();
+                    result.setImageResource(R.drawable.upset);
+                    result.setVisibility(view.VISIBLE);
+                    times++;
+                }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
