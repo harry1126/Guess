@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView guess;
     private int num;
     private TextView information;
-    int times = 0;
     int counter;
     private TextView edcounter;
     @Override
@@ -44,28 +43,25 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                times = 0;
                 reset();
             }
         });
     }
-    public void reset(){
+            public void reset(){
+                counter = 0;
+                edcounter.setText(counter+"");
                 guess.setText("");
                 result.setVisibility(View.GONE);
                 information.setText("");
                 secret = new Random().nextInt(10)+1;
-                counter = 0;
-                edcounter.setText(counter+"");
-
-    }
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @Override
-             public void onClick(DialogInterface dialog, int which) {
-                times = 0;
-                reset();
             }
-    };
              public void Button(View view){
+                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+                     reset();
+                 }
+             };
                 counter++;
                 edcounter.setText(counter+"");
                 num = Integer.parseInt(guess.getText().toString());
@@ -74,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     //Toast.makeText(MainActivity.this,"got it",Toast.LENGTH_LONG).show();
                     result.setImageResource(R.drawable.happy);
                     result.setVisibility(view.VISIBLE);
-                    information.setText("猜了"+String.valueOf(times+1)+"次答對");
-                    times = 0;
+                    information.setText("猜了"+String.valueOf(counter)+"次答對");
                     new  AlertDialog.Builder(MainActivity.this)
                             .setTitle("Got it")
                             .setMessage("Bingo")
@@ -86,14 +81,17 @@ public class MainActivity extends AppCompatActivity {
                     //Toast.makeText(MainActivity.this,"bigger",Toast.LENGTH_LONG).show();
                     result.setImageResource(R.drawable.upset);
                     result.setVisibility(view.VISIBLE);
-                    times++;
+                    new  AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Got it")
+                            .setMessage("Bingo")
+                            .setPositiveButton("Ok",listener)
+                            .show();
                     listener = null;
                 }else if (secret < num){
                     information.setText("smaller !");
                     //Toast.makeText(MainActivity.this,"smaller",Toast.LENGTH_LONG).show();
                     result.setImageResource(R.drawable.upset);
                     result.setVisibility(view.VISIBLE);
-                    times++;
                     listener = null;
                 }
     }
@@ -115,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
