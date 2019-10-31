@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                  public void onClick(DialogInterface dialog, int which) {
                      reset();
                  }
-             };
+                };
                 counter++;
                 edcounter.setText(counter+"");
                 num = Integer.parseInt(guess.getText().toString());
@@ -82,17 +82,21 @@ public class MainActivity extends AppCompatActivity {
                     result.setImageResource(R.drawable.upset);
                     result.setVisibility(view.VISIBLE);
                     new  AlertDialog.Builder(MainActivity.this)
-                            .setTitle("Got it")
-                            .setMessage("Bingo")
-                            .setPositiveButton("Ok",listener)
+                            .setTitle("Wrong")
+                            .setMessage("Bigger")
+                            .setPositiveButton("Ok",null)
                             .show();
-                    listener = null;
                 }else if (secret < num){
                     information.setText("smaller !");
                     //Toast.makeText(MainActivity.this,"smaller",Toast.LENGTH_LONG).show();
                     result.setImageResource(R.drawable.upset);
                     result.setVisibility(view.VISIBLE);
-                    listener = null;
+                    new  AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Wrong")
+                            .setMessage("smaller")
+                            .setPositiveButton("Ok",null)
+                            .show();
+
                 }
     }
 
